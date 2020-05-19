@@ -1,0 +1,63 @@
+{
+    "name": "vscode-tsc",
+    "displayName": "Cave Story TSC",
+    "description": "TSC language server and vscode support",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jozsefsallai/tsc-language-tooling.git"
+    },
+    "bugs": {
+        "url": "https://github.com/jozsefsallai/tsc-language-tooling/issues"
+    },
+    "homepage": "https://github.com/jozsefsallai/tsc-language-tooling#readme",
+    "author": "@jozsefsallai",
+    "publisher": "jozsefsallai",
+    "icon": "images/icon.png",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.30.0"
+    },
+    "categories": [
+        "Programming Languages",
+        "Formatters"
+    ],
+    "activationEvents": [
+        "onLanguage:tsc"
+    ],
+    "main": "./client/out/extension",
+    "contributes": {
+        "languages": [
+            {
+                "id": "tsc",
+                "aliases": [
+                    "Cave Story TSC",
+                    "tsc"
+                ],
+                "extensions": [
+                    ".tsc"
+                ],
+                "configuration": "./client/language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "tsc",
+                "scopeName": "source.tsc",
+                "path": "./client/syntaxes/tsc.tmLanguage.json"
+            }
+        ]
+    },
+    "devDependencies": {
+        "@types/node": "^14.0.1",
+        "@typescript-eslint/parser": "^2.34.0",
+        "eslint": "^7.0.0",
+        "typescript": "^3.9.2"
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -b",
+        "lint": "eslint . --ext .ts",
+        "watch": "tsc -b -w",
+        "postinstall": "cd client && npm install && cd ../server && npm install && cd .."
+    }
+}
