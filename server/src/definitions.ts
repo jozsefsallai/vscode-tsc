@@ -1,5 +1,3 @@
-import { InsertTextFormat } from 'vscode-languageserver';
-
 const definitions = [
   {
     key: '<AE+',
@@ -17,8 +15,8 @@ const definitions = [
     documentation: 'Give weapon W (if not already acquired), and add X ammo. Use 0000 for infinite ammo.',
     format: '<AM+WWWW:XXXX',
     insertText: 'AM+${1:0000}:${2:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 2
+    nargs: 2,
+    argtype: [ "weapon", "number" ]
   },
   {
     key: '<AM-',
@@ -27,8 +25,8 @@ const definitions = [
     documentation: 'Remove weapon W.',
     format: '<AM-WWWW',
     insertText: 'AM-${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "weapon" ]
   },
   {
     key: '<AMJ',
@@ -37,8 +35,8 @@ const definitions = [
     documentation: 'Jump to event X if the PC has weapon W.',
     format: '<AMJWWWW:XXXX',
     insertText: 'AMJ${1:0000}:${2:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 2
+    nargs: 2,
+    argtype: [ "number", "weapon" ]
   },
   {
     key: '<ANP',
@@ -47,8 +45,8 @@ const definitions = [
     documentation: 'Give all entities W scriptstate X and direction Y. Used for animation.',
     format: '<ANPWWWW:XXXX:YYYY',
     insertText: 'ANP${1:0000}:${2:0000}:${3:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 3
+    nargs: 3,
+    argtype: [ "number", "number", "direction" ]
   },
   {
     key: '<BOA',
@@ -57,8 +55,8 @@ const definitions = [
     documentation: 'Give map-boss (eg Omega) scriptstate W',
     format: '<BOAWWWW',
     insertText: 'BOA${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<BSL',
@@ -67,8 +65,8 @@ const definitions = [
     documentation: 'Start boss fight with entity W. Use 0000 to end the boss fight. (NPC flag 0200 must be set; should work with anything that has HP)',
     format: '<BSLWWWW',
     insertText: 'BSL${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<CAT',
@@ -113,8 +111,8 @@ const definitions = [
     documentation: 'Change the tile at coordinates W:X to type Y. Produces smoke.',
     format: '<CMPWWWW:XXXX:YYYY',
     insertText: 'CMP${1:0000}:${2:0000}:${3:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 3
+    nargs: 3,
+    argtype: [ "number", "number", "number" ]
   },
   {
     key: '<CMU',
@@ -123,8 +121,8 @@ const definitions = [
     documentation: 'Change music to song W.',
     format: '<CMUWWWW',
     insertText: 'CMU${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "song" ]
   },
   {
     key: '<CNP',
@@ -133,8 +131,8 @@ const definitions = [
     documentation: 'Change all entities W to type X with direction Y.',
     format: '<CNPWWWW:XXXX:YYYY',
     insertText: 'CNP${1:0000}:${2:0000}:${3:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 3
+    nargs: 3,
+    argtype: [ "number", "number", "direction" ]
   },
   {
     key: '<CPS',
@@ -170,8 +168,8 @@ const definitions = [
     documentation: 'Remove all entities of type W.',
     format: '<DNAWWWW',
     insertText: 'DNA${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<DNP',
@@ -180,8 +178,8 @@ const definitions = [
     documentation: 'Remove all entities W.',
     format: '<DNPWWWW',
     insertText: 'DNP${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<ECJ',
@@ -190,8 +188,8 @@ const definitions = [
     documentation: 'Jump to event X if any entities W exist.',
     format: '<ECJWWWW:XXXX',
     insertText: 'ECJ${1:0000}:${2:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 2
+    nargs: 2,
+    argtype: [ "number", "number" ]
   },
   {
     key: '<END',
@@ -209,8 +207,8 @@ const definitions = [
     documentation: 'Equip item W.',
     format: '<EQ+WWWW',
     insertText: 'EQ+${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "equippable" ]
   },
   {
     key: '<EQ-',
@@ -219,8 +217,8 @@ const definitions = [
     documentation: 'Dequip item W.',
     format: '<EQ-WWWW',
     insertText: 'EQ-${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "equippable" ]
   },
   {
     key: '<ESC',
@@ -238,8 +236,8 @@ const definitions = [
     documentation: 'Go to event W.',
     format: '<EVEWWWW',
     insertText: 'EVE${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<FAC',
@@ -248,8 +246,8 @@ const definitions = [
     documentation: 'Show face W in the message box.',
     format: '<FACWWWW',
     insertText: 'FAC${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "face" ]
   },
   {
     key: '<FAI',
@@ -258,8 +256,8 @@ const definitions = [
     documentation: 'Fade in with direction W.',
     format: '<FAIWWWW',
     insertText: 'FAI${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "direction" ]
   },
   {
     key: '<FAO',
@@ -268,8 +266,8 @@ const definitions = [
     documentation: 'Fade out with direction W.',
     format: '<FAOWWWW',
     insertText: 'FAO${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "direction" ]
   },
   {
     key: '<FL+',
@@ -278,8 +276,8 @@ const definitions = [
     documentation: 'Set flag W. Using flags over 8000 is inadvisable.',
     format: '<FL+WWWW',
     insertText: 'FL+${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<FL-',
@@ -288,8 +286,8 @@ const definitions = [
     documentation: 'Clear flag W.',
     format: '<FL-WWWW',
     insertText: 'FL-${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<FLA',
@@ -307,8 +305,8 @@ const definitions = [
     documentation: 'Jump to event X if flag W is set.',
     format: '<FLJWWWW:XXXX',
     insertText: 'FLJ${1:0000}:${2:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 2
+    nargs: 2,
+    argtype: [ "number", "number" ]
   },
   {
     key: '<FMU',
@@ -326,8 +324,8 @@ const definitions = [
     documentation: 'Focus on boss W in X ticks. Use X > 0.',
     format: '<FOBXXXX:YYYY',
     insertText: 'FOB${1:0000}:${2:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 2
+    nargs: 2,
+    argtype: [ "number", "number" ]
   },
   {
     key: '<FOM',
@@ -336,8 +334,8 @@ const definitions = [
     documentation: 'Focus on the PC in W ticks. Use W > 0.',
     format: '<FOMXXXX',
     insertText: 'FOM${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<FON',
@@ -346,8 +344,8 @@ const definitions = [
     documentation: 'Focus on entity W in X ticks. Use X > 0.',
     format: '<FONWWWW:XXXX',
     insertText: 'FON${1:0000}:${2:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 2
+    nargs: 2,
+    argtype: [ "number", "number" ]
   },
   {
     key: '<FRE',
@@ -365,8 +363,8 @@ const definitions = [
     documentation: 'Display an item or weapon icon above the message box. Add 1000 to W for items. Use 0000 to remove.',
     format: '<GITWWWW',
     insertText: 'GIT${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "item" ]
   },
   {
     key: '<HMC',
@@ -393,8 +391,8 @@ const definitions = [
     documentation: 'Change entity W to type X with direction Y and set entity flag 100 (0x8000).',
     format: '<INPWWWW:XXXX:YYYY',
     insertText: 'INP${1:0000}:${2:0000}:${3:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 3
+    nargs: 3,
+    argtype: [ "number", "number", "direction" ]
   },
   {
     key: '<IT+',
@@ -403,8 +401,8 @@ const definitions = [
     documentation: 'Give item W.',
     format: '<IT+XXXX',
     insertText: 'IT+${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "item" ]
   },
   {
     key: '<IT-',
@@ -413,8 +411,8 @@ const definitions = [
     documentation: 'Remove item W.',
     format: '<IT-XXXX',
     insertText: 'IT-${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "item" ]
   },
   {
     key: '<ITJ',
@@ -423,8 +421,8 @@ const definitions = [
     documentation: 'Jump to event X if the PC has item W.',
     format: '<ITJWWWW:XXXX',
     insertText: 'ITJ${1:0000}:${2:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 2
+    nargs: 2,
+    argtype: [ "item", "number" ]
   },
   {
     key: '<KEY',
@@ -451,8 +449,8 @@ const definitions = [
     documentation: 'Recover W health.',
     format: '<LI+XXXX',
     insertText: 'LI+${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<ML+',
@@ -461,8 +459,8 @@ const definitions = [
     documentation: 'Increase the current and maximum health by W.',
     format: '<ML+XXXX',
     insertText: 'ML+${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<MLP',
@@ -498,8 +496,8 @@ const definitions = [
     documentation: 'Move entity W to coordinates X:Y with direction Z.',
     format: '<MNPWWWW:XXXX:YYYY:ZZZZ',
     insertText: 'MNP${1:0000}:${2:0000}:${3:0000}:${4:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 4
+    nargs: 4,
+    argtype: [ "number", "number", "number", "direction" ]
   },
   {
     key: '<MOV',
@@ -508,8 +506,8 @@ const definitions = [
     documentation: 'Move the PC to coordinates W:X.',
     format: '<MOVWWWW:XXXX',
     insertText: 'MOV${1:0000}:${2:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 2
+    nargs: 2,
+    argtype: [ "number", "number" ]
   },
   {
     key: '<MP+',
@@ -518,8 +516,8 @@ const definitions = [
     documentation: 'Set map flag W. Map flags cannot be unset. Highest usable flag is 127.',
     format: '<MP+WWWW',
     insertText: 'MP+${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: ["number"]
   },
   {
     key: '<MPJ',
@@ -528,8 +526,8 @@ const definitions = [
     documentation: 'Jump to event W if the map flag for the current area is set.',
     format: '<MPJXXXX',
     insertText: 'MPJ${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<MS2',
@@ -565,8 +563,8 @@ const definitions = [
     documentation: 'Causes the PC to hop in the direction opposite of W. Using up or down causes the jump to be vertical.',
     format: '<MYBWWWW',
     insertText: 'MYB${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "direction" ]
   },
   {
     key: '<MYD',
@@ -575,8 +573,8 @@ const definitions = [
     documentation: 'Causes the PC to face direction W.',
     format: '<MYDWWWW',
     insertText: 'MYD${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "direction" ]
   },
   {
     key: '<NCJ',
@@ -585,8 +583,8 @@ const definitions = [
     documentation: 'Jump to event X if any entity of type W exists.',
     format: '<NCJWWWW:XXXX',
     insertText: 'NCJ${1:0000}:${2:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 2
+    nargs: 2,
+    argtype: [ "number", "number" ]
   },
   {
     key: '<NOD',
@@ -604,8 +602,8 @@ const definitions = [
     documentation: 'Prints the value [4a5b34+W*4] to the message box. Use 0000 to print the last used W from compatible commands (eg AM+).',
     format: '<NUMWWWW',
     insertText: 'NUM${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<PRI',
@@ -623,8 +621,8 @@ const definitions = [
     documentation: 'Set teleporter slot W to event X. Selecting slot W while using the teleporter menu will jump to event X.',
     format: '<PS+WWWW:XXXX',
     insertText: 'PS+${1:0000}:${2:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 2
+    nargs: 2,
+    argtype: [ "number", "number" ]
   },
   {
     key: '<QUA',
@@ -633,8 +631,8 @@ const definitions = [
     documentation: 'Shake the screen for W ticks.',
     format: '<QUAWWWW',
     insertText: 'QUA${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<RMU',
@@ -661,8 +659,8 @@ const definitions = [
     documentation: 'Show illustration W (during credits).',
     format: '<SILWWWW',
     insertText: 'SIL${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "illustration" ]
   },
   {
     key: '<SK+',
@@ -671,8 +669,8 @@ const definitions = [
     documentation: 'Set skipflag W. (remains set until program exits, to avoid repeating cutscenes/dialogue after retrying)',
     format: '<SK+WWWW',
     insertText: 'SK+${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<SK-',
@@ -681,8 +679,8 @@ const definitions = [
     documentation: 'Clear skipflag W.',
     format: '<SK-WWWW',
     insertText: 'SK-${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<SKJ',
@@ -691,8 +689,8 @@ const definitions = [
     documentation: 'Jump to event Y if skipflag X is set',
     format: '<SKJWWWW:XXXX',
     insertText: 'SKJ${1:0000}:${2:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 2
+    nargs: 2,
+    argtype: [ "number", "number" ]
   },
   {
     key: '<SLP',
@@ -719,8 +717,8 @@ const definitions = [
     documentation: 'Jump to event X if skipflag W is set. Does not create smoke.',
     format: '<SMPWWWW:XXXX',
     insertText: 'SMP${1:0000}:${2:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 2
+    nargs: 2,
+    argtype: [ "number", "number" ]
   },
   {
     key: '<SNP',
@@ -729,8 +727,8 @@ const definitions = [
     documentation: 'Create an entity of type W at coordinates X:Y with direction Z.',
     format: '<SNPWWWW:XXXX:YYYY:ZZZZ',
     insertText: 'SNP${1:0000}:${2:0000}:${3:0000}:${4:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 4
+    nargs: 4,
+    argtype: [ "number", "number", "number", "direction" ]
   },
   {
     key: '<SOU',
@@ -739,8 +737,8 @@ const definitions = [
     documentation: 'Play sound effect W.',
     format: '<SOUWWWW',
     insertText: 'SOU${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "sfx" ]
   },
   {
     key: '<SPS',
@@ -758,8 +756,8 @@ const definitions = [
     documentation: 'Start the stream sound with volume W. (from River area - normal pitch is 0400)',
     format: '<SSSWWWW',
     insertText: 'SSS${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<STC',
@@ -786,8 +784,8 @@ const definitions = [
     documentation: 'Trade weapon W for weapon X and set max ammo to Y. Use 0000 to keep the same amount of ammo. (GLITCH: first weapon 0000)',
     format: '<TAMWWWW:XXXX:YYYY',
     insertText: 'TAM${1:0000}:${2:0000}:${3:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 3
+    nargs: 3,
+    argtype: [ "weapon", "weapon", "number" ]
   },
   {
     key: '<TRA',
@@ -796,8 +794,8 @@ const definitions = [
     documentation: 'Travel to map W, run event X, and move the PC to coordinates Y:Z.',
     format: '<TRAWWWW:XXXX:YYYY:ZZZZ',
     insertText: 'TRA${1:0000}:${2:0000}:${3:0000}:${4:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 4
+    nargs: 4,
+    argtype: [ "map", "number", "number", "number" ]
   },
   {
     key: '<TUR',
@@ -815,8 +813,8 @@ const definitions = [
     documentation: 'Set character movement type. Use 0000 for normal, 0001 for zero-G (disables focus commands) and 0002 to disallow movement (can still fire).',
     format: '<UNIXXXX',
     insertText: 'UNI${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<UNJ',
@@ -825,8 +823,8 @@ const definitions = [
     documentation: 'Jump to event X if movement is of type W (0000 for normal, 0001 for zero-G).',
     format: '<UNJWWWW:XXXX',
     insertText: 'UNJ${1:0000}:${2:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 2
+    nargs: 2,
+    argtype: [ "number", "number" ]
   },
   {
     key: '<WAI',
@@ -835,8 +833,8 @@ const definitions = [
     documentation: 'Pause script for W ticks.',
     format: '<WAIWWWW',
     insertText: 'WAI${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<WAS',
@@ -854,8 +852,8 @@ const definitions = [
     documentation: 'Show the island falling in manner W. Use 0000 to have it crash and 0001 to have it stop midway.',
     format: '<XX1WWWW',
     insertText: 'XX1${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<YNJ',
@@ -864,8 +862,8 @@ const definitions = [
     documentation: 'Prompt Yes/No; jump to event W if No is selected.',
     format: '<YNJWWWW',
     insertText: 'YNJ${1:0000}',
-    insertTextFormat: InsertTextFormat.Snippet,
-    nargs: 1
+    nargs: 1,
+    argtype: [ "number" ]
   },
   {
     key: '<ZAM',
