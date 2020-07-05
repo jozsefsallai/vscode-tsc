@@ -1,8 +1,8 @@
 import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import definitions from '../definitions';
+import Config from '../Config';
 
-function validateCommands(text: string, textDocument: TextDocument): Diagnostic[] {
+function validateCommands(text: string, textDocument: TextDocument, config: Config): Diagnostic[] {
   // this will match <ABC, <ABC0000, <ABC0000:0001, <ABC0000:0001:0002, <ABC0000:0001:0002:0003
   const commandPattern = /\<(([A-Z0-9+-]){3}(([0-9]){4})?)((\:([0-9]){4})?){0,3}/g;
   let match: RegExpExecArray | null;
@@ -12,7 +12,7 @@ function validateCommands(text: string, textDocument: TextDocument): Diagnostic[
   while (match = commandPattern.exec(text)) {
     const input = match[0];
     const targetCommand = input.substr(0, 4);
-    const command = definitions.find(c => c.key === targetCommand);
+    const command = config.getTSCDefinition(targetCommand);
 
     if (!command) {
       continue;
@@ -116,11 +116,11 @@ function validateMessages(text: string, textDocument: TextDocument): Diagnostic[
   return diagnostics;
 }
 
-function validate(textDocument: TextDocument): Diagnostic[] {
+function validate(textDocument: TextDocument, config: Config): Diagnostic[] {
   const text = textDocument.getText();
 
   let diagnostics: Diagnostic[] = [
-    ...validateCommands(text, textDocument),
+    ...validateCommands(text, textDocument, config),
     ...validateEvents(text, textDocument),
     ...validateMessages(text, textDocument)
   ];
