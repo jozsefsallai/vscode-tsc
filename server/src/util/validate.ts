@@ -18,10 +18,19 @@ function validateCommands(text: string, textDocument: TextDocument, config: Conf
       continue;
     }
 
-    const args = input.slice(4).split(':').filter(a => !!a.length);
+    let argc = 0;
+    const inputWithoutCommand = input.slice(4);
 
-    if (args.length !== command.nargs) {
-      const quantity = args.length > command.nargs
+    for (let i = 0; i < inputWithoutCommand.length; i++) {
+      const arg = inputWithoutCommand.substr(i * 5, 4);
+
+      if (arg.length === 4 && parseInt(arg + 1)) {
+        argc++;
+      }
+    }
+
+    if (argc !== command.nargs) {
+      const quantity = argc > command.nargs
         ? 'many'
         : 'few';
 
@@ -31,7 +40,7 @@ function validateCommands(text: string, textDocument: TextDocument, config: Conf
           start: textDocument.positionAt(match.index),
           end: textDocument.positionAt(match.index + input.length)
         },
-        message: `Too ${quantity} arguments provided to ${command.key}. Expected ${command.nargs}, got ${args.length}.`,
+        message: `Too ${quantity} arguments provided to ${command.key}. Expected ${command.nargs}, got ${argc}.`,
         source: 'tsc-argc'
       });
     }
