@@ -63,6 +63,14 @@ connection.onInitialized(() => {
   if (hasConfigurationCapability) {
     connection.client.register(DidChangeConfigurationNotification.type, undefined);
   }
+
+  connection.onRequest('tsc/setConfig', function (userConfig: object) {
+    config.updateConfig(userConfig);
+  });
+
+  connection.onRequest('tsc/resetConfig', function () {
+    config.resetConfig();
+  });
 });
 
 documents.onDidChangeContent(change => {

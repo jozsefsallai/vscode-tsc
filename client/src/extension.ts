@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { ExtensionContext } from 'vscode';
+import { ExtensionContext, workspace, Uri } from 'vscode';
 
 import {
   LanguageClient,
@@ -9,6 +9,30 @@ import {
 } from 'vscode-languageclient';
 
 let client: LanguageClient;
+
+function getRcURI() {
+  return Uri.joinPath(workspace.workspaceFolders[0].uri, '.tscrc.json');
+}
+
+function sendConfigUpdateRequest() {
+  workspace.fs.readFile(getRcURI())
+    .then(buffer => {
+      const contents = buffer.toString();
+
+      try {
+        const json = JSON.parse(contents);
+        client.sendRequest('tsc/setConfig', json);
+      } catch {
+        console.log('Local .tscrc.json is invalid. Using default config.');
+      }
+    }, function () {
+      console.log('Local .tscrc.json does not exist. Using default config.');
+    });
+}
+
+function sendConfigResetRequest() {
+  client.sendRequest('tsc/resetConfig');
+}
 
 export function activate(context: ExtensionContext) {
   let serverModule = context.asAbsolutePath(
@@ -50,6 +74,30 @@ export function activate(context: ExtensionContext) {
   );
 
   client.start();
+
+  client.onReady().then(sendConfigUpdateRequest);
+
+  workspace.onDidRenameFiles(function (e) {
+    if (e.files.find(f => f.newUri.toString() === getRcURI().toString())) {
+      sendConfigUpdateRequest();
+    }
+
+    if (e.files.find(f => f.oldUri.toString() === getRcURI().toString())) {
+      sendConfigResetRequest();
+    }
+  });
+
+  workspace.onDidDeleteFiles(function (e) {
+    if (e.files.map(f => f.toString()).includes(getRcURI().toString())) {
+      sendConfigResetRequest();
+    }
+  });
+
+  workspace.onDidSaveTextDocument(function (e) {
+    if (e.uri.toString() === getRcURI().toString()) {
+      sendConfigUpdateRequest();
+    }
+  });
 }
 
 export function deactivate(): Thenable<void> | undefined {

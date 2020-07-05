@@ -1,4 +1,5 @@
 import * as defaultConfig from './.tscrc.json';
+import clonedeep from 'lodash.clonedeep';
 
 export interface IMaxMessageLineLengthConfig {
   plain?: number;
@@ -42,11 +43,21 @@ export interface IConfig {
   sfx?: IGenericConfig;
 }
 
+function deepassign(dest: any, src: any) {
+  Object.keys(src).forEach(key => {
+    if (typeof dest[key] === 'object' && dest[key] !== null) {
+      return deepassign(dest[key], src[key]);
+    }
+
+    dest[key] = src[key];
+  });
+}
+
 class Config {
   public config: IConfig;
 
   constructor() {
-    this.config = defaultConfig;
+    this.config = clonedeep(defaultConfig);
   }
 
   public getTSCDefinitionsArray(): ITSCDefinition[] {
@@ -135,6 +146,15 @@ class Config {
       default:
         return value;
     }
+  }
+
+  public updateConfig(config: IConfig) {
+    this.resetConfig();
+    deepassign(this.config, config);
+  }
+
+  public resetConfig() {
+    this.config = clonedeep(defaultConfig);
   }
 }
 

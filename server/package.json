@@ -1,6 +1,6 @@
 {
   "name": "tsc-language-server",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Language server for Cave Story's TSC scripting language.",
   "repository": {
     "type": "git",
@@ -13,7 +13,11 @@
   },
   "homepage": "https://github.com/jozsefsallai/tsc-language-tooling#readme",
   "dependencies": {
+    "lodash.clonedeep": "^4.5.0",
     "vscode-languageserver": "^6.1.1",
     "vscode-languageserver-textdocument": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/lodash.clonedeep": "^4.5.6"
   }
 }
