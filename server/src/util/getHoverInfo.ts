@@ -27,7 +27,7 @@ function getHoverInfo(str: string, at: number, config: Config): string | null {
   if (command.nargs) {
     for (let i = 0; i < command.nargs; i++) {
       const arg = strWithoutCommand.substr(i * 5, 4);
-      if (arg.length && parseInt(arg + 1)) {
+      if (arg.length === 4 && (parseInt(arg + 1) || (arg[0] === 'V' && parseInt(arg.slice(1) + 1)))) {
         args.push(arg);
       }
     }

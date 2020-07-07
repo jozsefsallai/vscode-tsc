@@ -3,8 +3,9 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import Config from '../Config';
 
 function validateCommands(text: string, textDocument: TextDocument, config: Config): Diagnostic[] {
-  // this will match <ABC, <ABC0000, <ABC0000:0001, <ABC0000:0001:0002, <ABC0000:0001:0002:0003
-  const commandPattern = /\<(([A-Z0-9+-]){3}(([0-9]){4})?)((\:([0-9]){4})?){0,3}/g;
+  // this will match <ABC, <ABC0000, <ABC0000:0001, <ABC0000:0001:0002, <ABC0000:0001:0002:0003,
+  // <ABC0000?0001, <ABC0000 0001b0002, <ABC0000$0001\0002^0003, <FAOV100, <FLJV020:V102
+  const commandPattern = /\<(([A-Z0-9+-]){3}(([0-9V])([0-9]){3})?)((.([0-9V])([0-9]){3})?){0,3}/g;
   let match: RegExpExecArray | null;
 
   let diagnostics: Diagnostic[] = [];
@@ -24,7 +25,7 @@ function validateCommands(text: string, textDocument: TextDocument, config: Conf
     for (let i = 0; i < inputWithoutCommand.length; i++) {
       const arg = inputWithoutCommand.substr(i * 5, 4);
 
-      if (arg.length === 4 && parseInt(arg + 1)) {
+      if (arg.length === 4 && (parseInt(arg + 1) || (arg[0] === 'V' && parseInt(arg.slice(1) + 1)))) {
         argc++;
       }
     }
