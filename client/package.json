@@ -1,6 +1,6 @@
 {
   "name": "vscode-tsc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Visual Studio Code tooling for Cave Story's TSC scripting language",
   "repository": {
     "type": "git",
