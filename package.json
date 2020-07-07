@@ -55,7 +55,8 @@
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
-        "compile": "tsc -b",
+        "cleanup": "rm -rf server/out client/out",
+        "compile": "npm run cleanup && tsc -b",
         "lint": "eslint . --ext .ts",
         "watch": "tsc -b -w",
         "postinstall": "cd client && npm install && cd ../server && npm install && cd .."
