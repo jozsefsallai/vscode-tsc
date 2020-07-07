@@ -29,6 +29,10 @@ export interface IGenericConfig {
   [key: string]: string;
 }
 
+export interface ICustomConfig {
+  [key: string]: IGenericConfig;
+}
+
 export interface IConfig {
   setup?: ISetupConfig;
   tsc?: ITSCConfig;
@@ -41,6 +45,7 @@ export interface IConfig {
   illustrations?: IGenericConfig;
   songs?: IGenericConfig;
   sfx?: IGenericConfig;
+  custom?: ICustomConfig;
 }
 
 function deepassign(dest: any, src: any) {
@@ -110,6 +115,10 @@ class Config {
     return this.config?.sfx?.[id] || id;
   }
 
+  public getCustomValue(key: string, id: string): string {
+    return this.config?.custom?.[key]?.[id] || id;
+  }
+
   public getArgumentValue(definition: ITSCDefinition, idx: number, value: string): string {
     const type = (definition?.argtype && definition.argtype[idx]) || 'number';
 
@@ -120,6 +129,16 @@ class Config {
 
       value = '0' + value.slice(1);
       return this.getItem(value);
+    }
+
+    if (type.startsWith('custom:')) {
+      const key = type.replace('custom:', '');
+
+      if (!key.length) {
+        return value;
+      }
+
+      return this.getCustomValue(key, value);
     }
 
     switch (type) {

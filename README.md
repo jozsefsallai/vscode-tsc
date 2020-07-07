@@ -102,6 +102,12 @@ Remember, you don't have to redefine everything - just whatever you want to add/
       // argument types:
       //   number, direction, face, map, weapon, item, equippable,
       //   illustration, song, sfx
+      // custom argument types:
+      //   if the type name is preceeded by `custom:` (with the colon
+      //   at the end and without backticks), the search will happen
+      //   in an object from the "custom" property. For example, if
+      //   the type is "custom:physics", the search will happen in the
+      //   custom.physics object of .tscrc.json. More on this below.
       // the language server will provide argument-related information
       // based on this array
       "argtype": [ "number" ]
@@ -156,7 +162,17 @@ Remember, you don't have to redefine everything - just whatever you want to add/
   "songs": {},
 
   // key-value pairs for each sound effect,
-  "sfx": {}
+  "sfx": {},
+
+  // custom argument types, similar to how the ones above work
+  // (except for "faces"). For example:
+  //   "custom": {
+  //     "physics": {
+  //       "0000": "Max Walk Speed",
+  //       // ...
+  //     }
+  //   }
+  "custom": {}
 }
 ```
 
