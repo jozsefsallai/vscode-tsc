@@ -126,7 +126,7 @@ export async function getLanguageServerPath(extensionDir: string): Promise<strin
 
   let localServer = `${extensionDir}/lsp/tsc-ls`;
 
-  if (process.platform.toString() === 'windows') {
+  if (process.platform.toString() === 'win32') {
     localServer = `${localServer}.exe`;
   }
 
