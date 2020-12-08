@@ -1,14 +1,22 @@
-import { ExtensionContext, workspace, Uri, commands, window } from 'vscode';
+import { ExtensionContext, workspace, Uri, commands, window, Range, Position } from 'vscode';
 
 import {
 	LanguageClient,
 	ServerOptions,
 	LanguageClientOptions
 } from 'vscode-languageclient';
+import { EncodedTSCFileSystemProvider } from './EncodedTSCFileSystemProvider';
 import { getLanguageServerPath } from './langserver';
 
 let client: LanguageClient;
 let extensionDir: string;
+
+const isEncodedTSC = (data: string): boolean => {
+	const commandRegex = /<[A-Z-+0-9]{3}/g;
+	const eventIDRegex = /#[0-9]{4}/g;
+	
+	return commandRegex.test(data) && eventIDRegex.test(data);
+};
 
 const getRcUri = () => workspace.workspaceFolders && Uri.joinPath(workspace.workspaceFolders[0].uri, '.tscrc.json');
 
@@ -64,6 +72,10 @@ export async function activate(ctx: ExtensionContext) {
 		]
 	};
 
+	workspace.registerFileSystemProvider('encoded-tsc', new EncodedTSCFileSystemProvider(), {
+		isCaseSensitive: process.platform === 'linux'
+	});
+
 	client = new LanguageClient('tsc', 'Cave Story TSC', serverOptions, clientOptions);
 	client.start();
 
@@ -94,6 +106,38 @@ export async function activate(ctx: ExtensionContext) {
 
 		if (e.uri.toString() === rcUri) {
 			sendConfigUpdateRequest();
+		}
+	});
+
+	workspace.onDidOpenTextDocument(e => {
+		if (e.languageId === 'tsc' && e.uri.scheme !== 'encoded-tsc') {
+			const reopenAction = 'Reopen in text view';
+
+			// Check if the .tsc file is encoded.
+			const startPos = e.positionAt(0);
+			const endPos = e.positionAt(512);
+			const tscData = e.getText(new Range(startPos, endPos));
+			
+			if (isEncodedTSC(tscData)) {
+				return;
+			}
+
+			window.showInformationMessage(
+				'Encrypted TSC found, do you want to reopen it in decoded mode (the file will be still saved as encrypted)?', 
+				reopenAction
+			).then(async result => {
+				if (result !== reopenAction) {
+					return;
+				}
+
+				const uri = Uri.file(e.fileName).with({scheme: 'encoded-tsc'});
+				try {
+					const doc = await workspace.openTextDocument(uri);
+					await window.showTextDocument(doc, { preview: false });
+				} catch (e) {
+					console.error(e);
+				}
+			});
 		}
 	});
 
