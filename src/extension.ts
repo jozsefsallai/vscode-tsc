@@ -66,6 +66,10 @@ export async function activate(ctx: ExtensionContext) {
 				language: 'tsc'
 			},
 			{
+				scheme: 'encoded-tsc',
+				language: 'tsc'
+			},
+			{
 				scheme: 'untitled',
 				language: 'tsc'
 			}

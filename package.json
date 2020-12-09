@@ -46,6 +46,24 @@
 				"path": "./syntaxes/tsc.tmLanguage.json"
 			}
 		],
+		"configuration": [
+			{
+				"title": "Cave Story TSC Configuration",
+				"properties": {
+					"tsc.trace.server": {
+						"scope": "window",
+						"type": "string",
+						"enum": [
+							"off",
+							"messages",
+							"verbose"
+						],
+						"default": "off",
+						"description": "Traces the communication between VS Code and the TSC language server."
+					}
+				}
+			}
+		],
 		"commands": [
 			{
 				"command": "vscode-tsc.restartLsp",
