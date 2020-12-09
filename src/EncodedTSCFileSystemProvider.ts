@@ -50,6 +50,10 @@ export class EncodedTSCFileSystemProvider implements vscode.FileSystemProvider {
 		const key = buf[half] === 0 ? 0xf9 : -buf[half] & 0xff;
 
 		for (let i = 0; i < buf.length; i++) {
+			if (i === half) {
+				continue;
+			}
+
 			buf[i] = (buf[i] + key) & 0xff;
 		}
 
@@ -66,6 +70,10 @@ export class EncodedTSCFileSystemProvider implements vscode.FileSystemProvider {
 		const key = buf[half] === 0 ? 0xf9 : -buf[half] & 0xff;
 
 		for (let i = 0; i < buf.length; i++) {
+			if (i === half) {
+				continue;
+			}
+
 			buf[i] = (buf[i] - key) & 0xff;
 		}
 
