@@ -32,10 +32,6 @@ The extension implements the [TSC Language Server](https://github.com/nimblebun/
 
 ![Message overflow warning](.github/assets/screenshot-message-overflow.png)
 
-## Planned Features
-
-- [ ] Event folding
-
 ## Contribution
 
 **1. Clone the repo:**
