@@ -97,7 +97,7 @@
 	"dependencies": {
 		"lookpath": "^1.1.0",
 		"mkdirp": "^1.0.4",
-		"node-fetch": "^2.6.1",
+		"node-fetch": "^3.1.1",
 		"openpgp": "^4.10.8",
 		"semver": "^7.3.2",
 		"vscode-languageclient": "^6.1.3"
